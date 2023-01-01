@@ -13,14 +13,14 @@ const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => {
       } ${styles}`}
       onClick={handleClick}
     >
-      {isActive ? (
+      {!isActive ? (
         <img src={imgUrl} alt="fund_logo" className="w-1/2 h-1/2"></img>
       ) : (
         <img
           src={imgUrl}
-          alt="fund_logo"
-          className={`p-[8px] ${
-            isActive !== name ? "grayscale" : "grayscale-0"
+          alt="fund_logo_row"
+          className={`w-1/2 h-1/2 ${
+            isActive === name ? "grayscale-0" : "grayscale"
           }`}
         ></img>
       )}
