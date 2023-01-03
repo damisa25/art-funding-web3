@@ -10,6 +10,7 @@ const CreateEvent = () => {
   const { createEvent } = useStateContext();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+
   const [form, setForm] = useState({
     name: "",
     title: "",
@@ -18,7 +19,15 @@ const CreateEvent = () => {
     image: "",
   });
   const handleFormFieldChange = (fieldName, e) => {
-    setForm({ ...form, [fieldName]: e.target.value });
+    if (fieldName === "image") {
+      setImage(e);
+      const imageFile = e.target.files[0];
+      // console.log(imageFile);
+      setForm({ ...form, [fieldName]: URL.createObjectURL(imageFile) });
+      // console.log(URL.createObjectURL(imageFile));
+    } else {
+      setForm({ ...form, [fieldName]: e.target.value });
+    }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,8 +107,8 @@ const CreateEvent = () => {
         <FormField
           label="Image *"
           placeholder="Enter image URL"
-          inputType="url"
-          value={form.image}
+          inputType="file"
+          accept="image/*"
           handleChange={(e) => handleFormFieldChange("image", e)}
         />
         <div className="flex justify-center items-center mt-[40px]">
