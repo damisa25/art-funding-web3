@@ -20,11 +20,14 @@ const CreateEvent = () => {
   });
   const handleFormFieldChange = (fieldName, e) => {
     if (fieldName === "image") {
-      setImage(e);
       const imageFile = e.target.files[0];
-      // console.log(imageFile);
-      setForm({ ...form, [fieldName]: URL.createObjectURL(imageFile) });
-      // console.log(URL.createObjectURL(imageFile));
+      var reader = new FileReader();
+      reader.readAsDataURL(imageFile);
+      reader.onloadend = function () {
+        var base64data = reader.result;
+
+        setForm({ ...form, [fieldName]: base64data });
+      };
     } else {
       setForm({ ...form, [fieldName]: e.target.value });
     }
@@ -32,20 +35,13 @@ const CreateEvent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    checkIfImage(form.image, async (exists) => {
-      if (exists) {
-        setIsLoading(true);
-        await createEvent({
-          ...form,
-          target: ethers.utils.parseUnits(form.target, 18),
-        });
-        setIsLoading(false);
-        navigate("/");
-      } else {
-        alert("Provide image URL");
-        setForm({ ...form, image: "" });
-      }
+    setIsLoading(true);
+    await createEvent({
+      ...form,
+      target: ethers.utils.parseUnits(form.target, 18),
     });
+    setIsLoading(false);
+    navigate("/");
 
     console.log(form);
   };
