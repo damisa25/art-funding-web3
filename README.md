@@ -1,1 +1,1 @@
-# clown-web3
+# Art funding
