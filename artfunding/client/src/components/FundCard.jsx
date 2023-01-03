@@ -15,7 +15,7 @@ const FundCard = ({
       <img
         src={image}
         alt={`${image}_${title}`}
-        class="w-full h-[188px] object-contain rounded-lg bg-[#b6b4c4]"
+        class="w-full h-[188px] object-cover object-center rounded-lg bg-[#b6b4c4]"
         loading="lazy"
       />
       {/* </div> */}
@@ -72,7 +72,7 @@ const FundCard = ({
               type="submit"
               onClick={handleClick}
             >
-              Read more
+              More details
             </button>
           </div>
         </div>
