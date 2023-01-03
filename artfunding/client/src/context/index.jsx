@@ -58,6 +58,13 @@ export const StateContextProvider = ({ children }) => {
     return filteredEvents;
   };
 
+  const getOwnerEvents = async (owner) => {
+    const allEvents = await getEvents();
+    const filteredEvents = allEvents.filter((d) => d.owner === owner);
+
+    return filteredEvents;
+  };
+
   const donate = async (pId, amount) => {
     const data = await contract.call("donateEvent", pId, {
       value: ethers.utils.parseEther(amount),
@@ -93,6 +100,7 @@ export const StateContextProvider = ({ children }) => {
         getUserEvents,
         donate,
         getDonations,
+        getOwnerEvents,
       }}
     >
       {children}

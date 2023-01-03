@@ -9,12 +9,12 @@ import {
 
 export const navlinks = [
   {
-    name: "dashboard",
+    name: "Dashboard",
     imgUrl: dashboard,
     path: "/",
   },
   {
-    name: "campaign",
+    name: "Artwork",
     imgUrl: createCampaign,
     path: "/create-event",
   },
@@ -31,12 +31,12 @@ export const navlinks = [
   //     disabled: true,
   //   },
   {
-    name: "profile",
+    name: "Profile",
     imgUrl: profile,
     path: "/profile",
   },
   {
-    name: "logout",
+    name: "Logout",
     imgUrl: logout,
     path: "/logout",
     disabled: true,

@@ -10,18 +10,26 @@ import { saveAs } from "file-saver";
 const EventDetails = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { donate, getDonations, contract, address } = useStateContext();
+  const { donate, getDonations, contract, address, getOwnerEvents } =
+    useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState("");
   const [donators, setDonators] = useState([]);
+  const [userEvents, setUserEvents] = useState([]);
 
   const fetchDonators = async () => {
     const data = await getDonations(state.pId);
     setDonators(data);
   };
 
+  const fetchEvents = async () => {
+    const data = await getOwnerEvents(state.owner);
+    setUserEvents(data);
+  };
+
   useEffect(() => {
     if (contract) {
+      fetchEvents();
       fetchDonators();
     }
   }, [contract, address]);
@@ -30,7 +38,7 @@ const EventDetails = () => {
     if (address) {
       setIsLoading(true);
       await donate(state.pId, amount);
-      saveAs(state.image, "image.jpg");
+      saveAs(state.image, `${state.title}.png`);
       navigate("/");
       setIsLoading(false);
     } else alert("Please connect your wallet.");
@@ -88,7 +96,9 @@ const EventDetails = () => {
                 <h4 className="font-semibold text-[16px] text-[#48426d] break-all">
                   {state.owner}
                 </h4>
-                <p className="mt-[4px] font-normal text-[12px] text-gray-600">{`(10 Events)`}</p>
+                <p className="mt-[4px] font-normal text-[12px] text-gray-600">{`(${
+                  userEvents?.length ?? 0
+                } Artworks)`}</p>
               </div>
             </div>
           </div>
