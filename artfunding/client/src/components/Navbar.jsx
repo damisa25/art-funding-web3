@@ -105,7 +105,7 @@ const Navbar = () => {
               title={address ? "Create artwork" : "Connect wallet"}
               styles={address ? "bg-[#f0c38e]" : "bg-[#f1aa9b]"}
               handleClick={() => {
-                if (address) navigate("create-campaign");
+                if (address) navigate("create-event");
                 else connect();
               }}
             />
